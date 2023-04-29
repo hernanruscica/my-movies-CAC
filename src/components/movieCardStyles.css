@@ -1,0 +1,24 @@
+
+.movieImage{
+    border-radius: 1.5em;
+    
+}
+.movieCard__link{
+    text-decoration: none;
+    
+    display: flex;    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    
+    height: auto;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.movieTitle{
+    font-size: 1.2em;
+    font-weight: 500;
+    color: rgb(58, 58, 209);
+}
