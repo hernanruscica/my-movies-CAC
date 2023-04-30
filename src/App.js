@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {MoviesNavigation} from "./components/MoviesNavigation";
 import { LandingPage } from './pages/LandingPage';
 import { MoviesMain } from './pages/MoviesMain';
+import { MovieDetails } from './components/MovieDetails';
 import { UserMain } from './pages/UserMain';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage/>} />        
         <Route path='/movies' element={<MoviesMain/>} />
+        <Route path='/movie/:movieId' element={<MovieDetails/>} />
         <Route path='/user' element={<UserMain/>} />        
       </Routes>
     </BrowserRouter>

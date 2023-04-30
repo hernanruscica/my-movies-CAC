@@ -10,7 +10,7 @@ export const MoviesCardsContainer = () => {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         GetInfo("/discover/movie").then((data)=>{
-            console.log(data);
+            //console.log(data);
             setMovies(data.results);  
         })
     }, []);
