@@ -19,8 +19,10 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage/>} />        
         <Route path='/movies' element={<MoviesMain/>} />
-        <Route path='/movie/:movieId' element={<MovieDetails/>} />
+        <Route path='/movie/:movieId' element={<MovieDetails/>} />        
         <Route path='/user' element={<UserMain/>} />        
+        <Route path='/user/create' element='Create user' />   
+        <Route path='/user/edit/:id' element='Edit user' />   
       </Routes>
     </BrowserRouter>
   );
