@@ -5,20 +5,26 @@ import { collection, getDocs, getDoc, deleteDoc, doc } from "firebase/firestore"
 import {db} from "../firebaseConfig/firebase.js";
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+
 const mySwal = withReactContent (Swal)
 
-export const UserCard =  () => {             
-    //console.log('userCard')
-    const [users, setUsers] = useState([]);
+export const UserCard =  (id) => {             
+    console.log('userCard', id)
+    //let currentId = (!id) ? id : "K1jZQ8d1L3LMSmsk24tG";
+    const [user, setUser] = useState([]);
 
-    const getUserData = async () => {
+    const getUserData = async (id) => {
         //referenciamos a la db de firestore
         const usersCollectionRef = collection(db, "users");
-        const userDocRef = doc(usersCollectionRef, "K1jZQ8d1L3LMSmsk24tG");  
+        const userDocRef = doc(usersCollectionRef, id);  
         try {
             const docSnapshot = await getDoc(userDocRef);
             if (docSnapshot.exists()) {
-            const userData = docSnapshot.data();
+            const userData = {...docSnapshot.data(), id: id};
+            //console.log(docSnapshot.data())
+            setUser(
+                userData
+            )
             //console.log(userData);
             } else {
             console.log("El documento no existe");
@@ -46,15 +52,14 @@ export const UserCard =  () => {
       const getAllUserData = async()=>{
         const usersCollectionRef = collection(db, "users");
         const data = await getDocs(usersCollectionRef)
-        setUsers(
+        setUser(
             data.docs.map((doc)=>(({...doc.data(),id:doc.id})))
-            )
-            //console.log(users)
+            )            
         }
         
       
-     useEffect(() => {            
-            getAllUserData();                  
+     useEffect((id) => {            
+        getUserData(id)
         }, []); 
 /*
     useEffect(() => {            
@@ -74,7 +79,7 @@ export const UserCard =  () => {
         <h1>showing user Card</h1>
         
         <p>{
-            (users.length !== 0) ? `name: ${users[0]['user_name']}` : ''
+            (user.length !== 0) ? `name: ${user.user_name} id: ${user.id} pass: ${user.password}` : ''
             //users[0]['user_name']
         }</p>        
         

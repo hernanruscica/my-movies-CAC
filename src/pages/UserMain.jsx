@@ -7,7 +7,7 @@ export const UserMain = () => {
         <>
             <main className="container">
                 <h1>UserMain Component</h1>
-                <UserCard ></UserCard>
+                <UserCard id="K1jZQ8d1L3LMSmsk24tG"></UserCard>
             </main>            
         </>
     )
