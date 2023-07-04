@@ -55,8 +55,7 @@ export const UserCard =  (id) => {
         setUser(
             data.docs.map((doc)=>(({...doc.data(),id:doc.id})))
             )            
-        }
-        
+        }        
       
      useEffect((id) => {            
         getUserData(id)
@@ -79,8 +78,9 @@ export const UserCard =  (id) => {
         <h1>showing user Card</h1>
         
         <p>{
-            (user.length !== 0) ? `name: ${user.user_name} id: ${user.id} pass: ${user.password}` : ''
+            //(user.length !== 0) ? `name: ${user.user_name} id: ${user.id} pass: ${user.password}` : ''
             //users[0]['user_name']
+            user
         }</p>        
         
         </>
