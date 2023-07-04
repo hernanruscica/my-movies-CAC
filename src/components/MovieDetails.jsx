@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
-import {GetInfo, ShowMagnet} from "../utils/MoviesInfo";
+import {GetInfo, ShowMagnets, ShowTrailer} from "../utils/MoviesInfo";
 import { Link } from "react-router-dom";
 import "../pages/generalStyles.css";
 
@@ -8,7 +8,7 @@ export const MovieDetails = () => {
     const {movieId} = useParams();
     
     const [movieCurrent, setMovieCurrent] = useState(null);    
-    const [torrentHash, setTorrentHash] = useState(null)
+    
 
     useEffect(() => {
         GetInfo(`/movie/${movieId}`).then((data) => {
@@ -24,7 +24,7 @@ export const MovieDetails = () => {
       
     const imgURL = `https://image.tmdb.org/t/p/w300${movieCurrent.poster_path}`;
     
-    
+    console.log(movieCurrent)
     return (
         <>            
             <div className="container movieDetailsContainer">
@@ -40,7 +40,9 @@ export const MovieDetails = () => {
                         }
                     </div>
                     <p>{`Description: ${movieCurrent.overview} `}</p>
-                    <ShowMagnet imdbId = {movieCurrent.imdb_id}></ShowMagnet>
+                    <ShowTrailer imdbId = {movieCurrent.imdb_id} />
+                    <ShowMagnets imdbId = {movieCurrent.imdb_id} />
+                    
                 </section>
             </div>            
         </>

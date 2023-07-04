@@ -16,18 +16,20 @@ return data;
 }
 
 
-export const ShowMagnet = (props) => {
-    const  {imdbId} = props;
+export const ShowMagnets = (props) => {
+    const  {imdbId, movieTitle} = props;    
     
     const [magnets, setMagnets] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            //console.log(imdbId);
+            console.log(imdbId);
             const response1 = await fetch(`${APIYTS}?imdb_id=${imdbId}`);        
             const data1 = await response1.json();   
-            setMagnets(data1.data.movie.torrents);
+            setMagnets(
+                data1.data.movie.torrents != null ? data1.data.movie.torrents : []
+                );
 
           } catch (error) {
             console.error('Error al consultar las APIs:', error.message);
@@ -37,9 +39,9 @@ export const ShowMagnet = (props) => {
         fetchData();
       }, []);
 
-      const generateMagnetLink = (hash) => {
-        const encodedMovieName = encodeURIComponent('Url Encoded Movie Name');
-        const magnetLink = `magnet:?xt=urn:btih:${hash}&dn=${encodedMovieName}&tr=http://track.one:1234/announce&tr=udp://track.two:80`;
+      const generateMagnetLink = (hash, movieTitle) => {
+        const encodedMovieName = encodeURIComponent(movieTitle);
+        const magnetLink = `magnet:?xt=urn:btih:${hash}&dn=${encodedMovieName}&tr=http://track.one:1234/announce&tr=udp://track.two:80&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
         return magnetLink;
       };
 
@@ -47,12 +49,12 @@ export const ShowMagnet = (props) => {
       return (
         <div>
           <h2>Magnets:</h2>
-          {magnets !== null && magnets.length > 0 ? (
-            magnets.map((magnet, index) => (
-              <div key={index}>
+          {(magnets !== null && magnets.length > 0) ? (
+            magnets.map((magnet) => (
+              <div >
                 <p>Quality: {magnet.quality}</p>                
                 <p>Hash: {magnet.hash}</p>
-                <a href={generateMagnetLink(magnet.hash)}>Magnet Link (revisar)</a>
+                <a href={generateMagnetLink(magnet.hash, movieTitle)}>Magnet Link (revisar)</a>
                 <hr></hr>                
               </div>
             ))
@@ -61,6 +63,37 @@ export const ShowMagnet = (props) => {
           )}
         </div>
       );
-  
-  
+}
+
+export const ShowTrailer = (props) => {
+    const  {imdbId} = props;  
+    const [dataYTS, setDataYts] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            //console.log(imdbId);
+            const response1 = await fetch(`${APIYTS}?imdb_id=${imdbId}`);        
+            const data1 = await response1.json();   
+            setDataYts(data1.data.movie.yt_trailer_code);
+
+          } catch (error) {
+            console.error('Error al consultar las APIs:', error.message);
+          }
+        };
+    
+        fetchData();
+      }, []);
+      console.log(dataYTS);
+    return (
+        <>
+            <h3> Trailer:</h3>
+            <p> {
+                    dataYTS !== null 
+                    ? <iframe width="560" height="315" src={`https://www.youtube.com/embed/${dataYTS}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                    : 'No hay datos'
+                }
+            </p>
+        </>
+    )
 }
