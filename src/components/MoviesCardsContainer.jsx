@@ -17,7 +17,7 @@ export const MoviesCardsContainer = () => {
 
     return (
         <>
-            <h3>MoviesCardsContainer Component</h3>               
+            <h3>Todos los titulos</h3>               
             <div className="moviesContainer">
                 {                 
                 movies.map((movie) => (                
