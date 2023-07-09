@@ -8,12 +8,19 @@ export const SearchBar = () => {
   const navigate = useNavigate() // 8 defino la variable
   const [txtBuscador,setTxtBuscador] = useState ("") //2 controlamos el estado del input
   const [txtBuscadorAnio,setTxtBuscadorAnio] = useState ("") //2 controlamos el estado del input
+  const [selectedGenre, setSelectedGenre] = useState('');
+  
 
-  //3 realizamos la funcion para controlar el submit (cuando apretamos el boton buscar)
+
+  const handleGenreChange = (event) => {
+        const selectedValue = event.target.value;
+        setSelectedGenre(selectedValue);
+  };
+ 
   const handleSubmit = (e) =>{
-                e.preventDefault(); // 5 no se realiza el submit
-                navigate(`/movies?search=${txtBuscador}`) //9 enviar lo que se escribe en el input a la url
-    }
+                e.preventDefault(); 
+                navigate(`/movies?search=${txtBuscador}&anio=${txtBuscadorAnio}&genero=${selectedGenre}`); 
+    };
 
   return (          
             <>
@@ -23,36 +30,22 @@ export const SearchBar = () => {
                         <input class="form-control me-2" type="search" placeholder="Ingrese su busqueda" aria-label="Search" 
                             value={txtBuscador} 
                             onChange={(e)=>setTxtBuscador(e.target.value)} 
+                            required
                         />
                         <input class="form-control me-2" type="search" placeholder="Todos los anios" aria-label="Search" 
                             value={txtBuscadorAnio} 
                             onChange={(e)=>setTxtBuscadorAnio(e.target.value)} 
                         />                    
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Genero
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="">Accion</a></li>
-                                <li><a class="dropdown-item" href="" >Comedia</a></li>
-                                <li><a class="dropdown-item" href="">Drama</a></li>
-                                <li><a class="dropdown-item" href="">Fantasia</a></li>
-                                <li><a class="dropdown-item" href="">Romance</a></li>
-                                <li><a class="dropdown-item" href="">Thriller</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Plataforma
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="">Todas</a></li>
-                                <li><a class="dropdown-item" href="">Netflix</a></li>
-                                <li><a class="dropdown-item" href="" >Star Plus</a></li>
-                                <li><a class="dropdown-item" href="">Disney Plus</a></li>
-                                <li><a class="dropdown-item" href="">Prime Video</a></li>
-                            </ul>
-                        </div>
+                        <select id="genre" value={selectedGenre} onChange={handleGenreChange}>
+                            <option value="">Genero</option>
+                            <option value="28">Accion</option>
+                            <option value="35">Comedia</option>
+                            <option value="18">Drama</option>
+                            <option value="14">Fantasia</option>
+                            <option value="10749">Romance</option>
+                            <option value="53">Thriller</option>
+                        </select>   
+                          
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
                 </div>
