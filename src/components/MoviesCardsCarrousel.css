@@ -4,3 +4,17 @@
   padding: 8px;
   margin: 0 5px;
 }
+.myCarrousel{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.myCarrousel_item_img{
+  width: 250px;
+  height: auto;
+}
+
+.myCarrousel_item_title{
+  font-size: 1em;
+}

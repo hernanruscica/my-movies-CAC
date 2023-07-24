@@ -46,37 +46,41 @@ export const MoviesCardsCarrousel = (props) => {
         selectNewIndex(selectedIndex, true);
       };
     
-     const generateCards = (myMovies, elemsPerPage) => {
+     const generateCards = (myMovies, elemsPerPage, idContainer) => {
          const moviesLen = myMovies.length;
          const pagesQuantity = Math.ceil(moviesLen / elemsPerPage);
          let cards = '';
+         const $myCarrouselContainer = document.getElementById(idContainer);
+         let  desde = selectedIndex * elementsPerPage, hasta = desde + elementsPerPage;
 
-         for (let i = 0; i < elemsPerPage; i++){
+         for (let i = desde; i < hasta; i++){
 
-            cards += `<div className="myCarrousel_item">
-                        <img src='https://image.tmdb.org/t/p/w300${myMovies[i].poster_path}' className="myCarrousel_item_img" alt="..."/>
-                        <h2 clasName = "myCarrousel_item_title">${myMovies[i].title}</h2> 
-                    </div>`
+            cards += `<div class="myCarrousel_item">            
+                        <img src='https://image.tmdb.org/t/p/w300${myMovies[i].poster_path}' class="myCarrousel_item_img" alt="..."/>
+                        <h2 class="myCarrousel_item_title">${myMovies[i].title}</h2> 
+                    </div>
+            `
          };
 
          console.log(cards);                 
-         return cards;
-     }
-         
+         //return cards;
+         $myCarrouselContainer.innerHTML = cards;                  
+     }       
    
     return (
         <>         
                 <p>{`carrousel - indice : ${selectedIndex} images por pagina: ${elementsPerPage}` }</p>
                 <p>{`cards desde la ${selectedIndex * elementsPerPage} 
                         hasta la ${(selectedIndex * elementsPerPage) + elementsPerPage - 1}`}</p>
-                 <div className="myCarrousel">                                     
+                <button className="myBtn" onClick={previous}>atras</button>
+                <button className="myBtn" onClick={next}>adelante</button>
+                 <div className="myCarrousel" id="myCarrousel">                                     
                         {
-                        (movies.length > 0) ? generateCards(movies, 4) : 'cargando...'
+                        (movies.length > 0) ? generateCards(movies, 4, "myCarrousel") : 'cargando...'
                         }
                     
                 </div> 
-                <button className="myBtn" onClick={previous}>atras</button>
-                <button className="myBtn" onClick={next}>adelante</button>
+                
 
                  
         </>
