@@ -16,8 +16,8 @@ export const MoviesSearchResults = (props) => {
     useEffect(() => {        
         GetInfo(`/search/movie?query=${searchText}&year=${searchTextAnio}`).then((data)=>{
             
-            console.log(data.results)            
-            console.log(data.results.filter(result => result.genre_ids.includes(parseInt(searchTextgenero, 10))));
+            //console.log(data.results)            
+            //console.log(data.results.filter(result => result.genre_ids.includes(parseInt(searchTextgenero, 10))));
             if(searchTextgenero === '')
                 setSearchResults(data.results);  
             else{

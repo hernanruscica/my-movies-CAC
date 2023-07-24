@@ -9,9 +9,15 @@ export const SearchBar = () => {
   const [txtBuscador,setTxtBuscador] = useState ("") //2 controlamos el estado del input
   const [txtBuscadorAnio,setTxtBuscadorAnio] = useState ("") //2 controlamos el estado del input
   const [selectedGenre, setSelectedGenre] = useState('');
-  
-
-
+  /*https://api.themoviedb.org/3/genre/movie/list  objeto con un atributo "genres" donde hay un array de objetos con id y name de todos los generos actuales*/   
+  const genres = [
+    {id: 28, name: "accion"},
+    {id: 35, name: "comedia"},
+    {id: 18, name: "drama"},
+    {id: 14, name: "fantasia"},
+    {id: 10749, name: "romance"},
+    {id: 53, name: "thriller"}
+];
   const handleGenreChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedGenre(selectedValue);
@@ -35,17 +41,13 @@ export const SearchBar = () => {
                         <input class="form-control me-2" type="search" placeholder="Todos los anios" aria-label="Search" 
                             value={txtBuscadorAnio} 
                             onChange={(e)=>setTxtBuscadorAnio(e.target.value)} 
-                        />                    
+                        />                                            
                         <select id="genre" value={selectedGenre} onChange={handleGenreChange}>
                             <option value="">Genero</option>
-                            <option value="28">Accion</option>
-                            <option value="35">Comedia</option>
-                            <option value="18">Drama</option>
-                            <option value="14">Fantasia</option>
-                            <option value="10749">Romance</option>
-                            <option value="53">Thriller</option>
-                        </select>   
-                          
+                            {   
+                                genres.map((genre) => (<option value={genre.id}>{genre.name}</option>))
+                            }
+                         </select>
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
                 </div>
