@@ -1,0 +1,24 @@
+.movie-result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: solid red 1px;
+}
+
+
+.movie-result_img-container{
+    width: 20vw;    
+    max-width: 200px;
+    border: solid yellow 1px;
+}
+
+.movie-result_img-info{
+    width: 100%;
+    border: solid cyan 1px;
+    padding: 1em;
+}
+
+.movie-result_img-container_img{
+    width: 100%;
+    height: auto;
+}
