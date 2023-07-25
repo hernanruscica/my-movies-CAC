@@ -15,10 +15,12 @@ export const MoviesCardsCarrousel = (props) => {
         {id: 10749, name: "Romance", nombre: "romance"},
         {id: 53, name: "Thriller", nombre: "thriller"}
     ];    
-    let {genero} = props;
-    let idGenero = genres.find(genre => genre.name == genero).id;  
-    let pagesQuantity = 5;  //del carrousel
-    let elementsPerPage = 20 / pagesQuantity;
+    let {genre_param, elementsPerPage} = props;
+    let idGenero = genres.find(genre => genre.name === genre_param).id;  
+    let genero = genres.find(genre => genre.name === genre_param).nombre;  
+    let generoCapitalized = genero[0].toUpperCase() + genero.substring(1);
+   
+    let pagesQuantity = 20 / elementsPerPage;
 
 
     const [movies, setMovies] = useState([]);      
@@ -27,10 +29,9 @@ export const MoviesCardsCarrousel = (props) => {
             setMovies(data.results);                                
         })        
     }, []);
-    console.log((movies.length > 0) ? movies : 'cargando...')
-   
 
     const [selectedIndex, setSelectedIndex] = useState(0);
+    let  desde = selectedIndex * elementsPerPage, hasta = desde + elementsPerPage;
 
     const selectNewIndex = (index, next = true) => {
         const condition = next ? selectedIndex < pagesQuantity - 1 : selectedIndex > 0;
@@ -45,45 +46,49 @@ export const MoviesCardsCarrousel = (props) => {
     const next = () => {
         selectNewIndex(selectedIndex, true);
       };
-    
-     const generateCards = (myMovies, elemsPerPage, idContainer) => {
-         const moviesLen = myMovies.length;
-         const pagesQuantity = Math.ceil(moviesLen / elemsPerPage);
-         let cards = '';
-         const $myCarrouselContainer = document.getElementById(idContainer);
-         let  desde = selectedIndex * elementsPerPage, hasta = desde + elementsPerPage;
 
-         for (let i = desde; i < hasta; i++){
+    let pagesNumbers = [];
+    for (let i = 0; i < pagesQuantity; i++) {
+        pagesNumbers.push(i);
+     }
 
-            cards += `<div class="myCarrousel_item">            
-                        <img src='https://image.tmdb.org/t/p/w300${myMovies[i].poster_path}' class="myCarrousel_item_img" alt="..."/>
-                        <h2 class="myCarrousel_item_title">${myMovies[i].title}</h2> 
-                    </div>
-            `
-         };
-
-         console.log(cards);                 
-         //return cards;
-         $myCarrouselContainer.innerHTML = cards;                  
-     }       
-   
-    return (
-        <>         
-                <p>{`carrousel - indice : ${selectedIndex} images por pagina: ${elementsPerPage}` }</p>
-                <p>{`cards desde la ${selectedIndex * elementsPerPage} 
-                        hasta la ${(selectedIndex * elementsPerPage) + elementsPerPage - 1}`}</p>
+    return (        
+        <>                 
+        <div className="MoviesCardsCarrousel">
+            <h2>{generoCapitalized}</h2>            
+            <div className="myCarrousel" id="myCarrousel">                                     
+                    {
+                    (movies.length > 0) 
+                    ?     
+                    movies.slice(desde, hasta).map((movie) => (  
+                        <Link to={`/movie/${movie.id}`}>
+                            <div className="myCarrousel_item">
+                                <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} class="myCarrousel_item_img" alt="..."/>
+                                <h3 className="myCarrousel_item_title">{movie.title}</h3> 
+                            </div>
+                        </Link>
+                        )
+                    )                   
+                    : 
+                    <p>Cargando...</p>
+                    }                    
+            </div> 
+            <div className="buttonsContainer">
                 <button className="myBtn" onClick={previous}>atras</button>
+                {
+                pagesNumbers.map((pageNumber, index) =>  (    
+                    <button 
+                    key={index} 
+                    onClick={() => setSelectedIndex(pageNumber)}
+                    class={(selectedIndex === index) ? 'selectedPage' : ''}>
+                        {pageNumber}
+                    </button>
+                    )
+                )
+                }
                 <button className="myBtn" onClick={next}>adelante</button>
-                 <div className="myCarrousel" id="myCarrousel">                                     
-                        {
-                        (movies.length > 0) ? generateCards(movies, 4, "myCarrousel") : 'cargando...'
-                        }
-                    
-                </div> 
-                
-
-                 
+            </div>
+        </div>        
         </>
-       
     )
 }

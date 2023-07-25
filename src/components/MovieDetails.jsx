@@ -24,7 +24,7 @@ export const MovieDetails = () => {
       
     const imgURL = `https://image.tmdb.org/t/p/w300${movieCurrent.poster_path}`;
     
-    console.log(movieCurrent)
+    //console.log(movieCurrent)
     return (
         <>            
             <div className="container movieDetailsContainer">
@@ -40,8 +40,8 @@ export const MovieDetails = () => {
                         }
                     </div>
                     <p>{`Description: ${movieCurrent.overview} `}</p>
-                    <ShowTrailer imdbId = {movieCurrent.imdb_id} />
-                    <ShowMagnets imdbId = {movieCurrent.imdb_id} />
+                    {/* <ShowTrailer imdbId = {movieCurrent.imdb_id} />
+                    <ShowMagnets imdbId = {movieCurrent.imdb_id} /> */}
                     
                 </section>
             </div>            

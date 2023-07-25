@@ -21,11 +21,12 @@ export const MoviesMain = () => {
             <main className="container">
                 <h2>Peliculas</h2>   
                 <SearchBar />
-
                 
                  {(queryText === '' && queryTextAnio === '') 
                  ? <>
-                        <MoviesCardsCarrousel genero = "Action"/> 
+                        <MoviesCardsCarrousel genre_param = "Action" elementsPerPage = {4}/> 
+                        <MoviesCardsCarrousel genre_param = "Drama" elementsPerPage = {4}/> 
+                        <MoviesCardsCarrousel genre_param = "Fantasy" elementsPerPage = {2}/> 
                         
                     </>
                  : <MoviesSearchResults searchText = {queryText} searchTextAnio = {queryTextAnio} searchTextgenero = {queryIdGenre}/>  }  
