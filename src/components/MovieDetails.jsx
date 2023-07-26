@@ -2,7 +2,9 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
 import {GetInfo, ShowMagnets, ShowTrailer} from "../utils/MoviesInfo";
 import { Link } from "react-router-dom";
-import "../pages/generalStyles.css";
+import {FaArrowLeft} from "react-icons/fa";
+// import "../pages/generalStyles.css";
+import "./movieCardStyles.css";
 
 export const MovieDetails = () => {
     const {movieId} = useParams();
@@ -27,24 +29,33 @@ export const MovieDetails = () => {
     //console.log(movieCurrent)
     return (
         <>            
-            <div className="container movieDetailsContainer">
-                <h4>{`MovieDetails component, showing movieId: ${movieCurrent.id}`}</h4>
-                <Link to = '/movies/'>Back</Link>
-                <figure className="movieDetailsFigure">
-                    <img  src={imgURL} alt={movieCurrent.title} />
-                </figure>    
+            <div className="container">
+                <Link to = '/movies/' className="back-link">
+                        <FaArrowLeft size="1.4em"/>
+                        <span >Volver</span>
+                </Link>
+
+                <div className=" movieContainer">     
+                    <figure className="movieDetailsFigure">
+                        <img  src={imgURL} alt={movieCurrent.title} />
+                    </figure>    
+                    <section className="movieDetailsSection">
+                        
+                        <h2>{movieCurrent.title} <em>{`(${movieCurrent.release_date.slice(0, 4)})`} </em></h2>
+                        <div className="genres">
+                            {movieCurrent.genres.map((genre) => genre.name).join(", ")
+                            }
+                        </div>                       
+                        
+                        <ShowMagnets imdbId = {movieCurrent.imdb_id} movieTitle = {movieCurrent.title}/>                     
+                    </section>   
+                </div>      
+
                 <section className="movieDetailsSection">
-                    <h5>{`Title: ${movieCurrent.title}`}</h5>
-                    <div className="genres">
-                        {movieCurrent.genres.map((genre) => genre.name).join(", ")
-                        }
-                    </div>
-                    <p>{`Description: ${movieCurrent.overview} `}</p>
-                    {/* <ShowTrailer imdbId = {movieCurrent.imdb_id} />
-                    <ShowMagnets imdbId = {movieCurrent.imdb_id} /> */}
-                    
-                </section>
-            </div>            
+                        <ShowTrailer imdbId = {movieCurrent.imdb_id} />
+                        <p>{`Description: ${movieCurrent.overview} `}</p>
+                </section>  
+            </div>  
         </>
     )
 }

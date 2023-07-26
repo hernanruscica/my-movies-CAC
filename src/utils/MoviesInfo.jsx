@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import "./MoviesInfo.css";
+import {FaMagnet} from "react-icons/fa"
+
 const API = "https://api.themoviedb.org/3"
 const APIYTS = "https://yts.mx/api/v2/movie_details.json";
+
+
 
 
 export const GetInfo =(path)=>{
@@ -38,8 +43,9 @@ export const ShowMagnets = (props) => {
     
         fetchData();
       }, []);
-
+//console.log(magnets)
       const generateMagnetLink = (hash, movieTitle) => {
+        console.log(movieTitle)
         const encodedMovieName = encodeURIComponent(movieTitle);
         const magnetLink = `magnet:?xt=urn:btih:${hash}&dn=${encodedMovieName}&tr=http://track.one:1234/announce&tr=udp://track.two:80&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
         return magnetLink;
@@ -47,17 +53,39 @@ export const ShowMagnets = (props) => {
 
       
       return (
-        <div>
-          <h2>Magnets:</h2>
-          {(magnets !== null && magnets.length > 0) ? (
-            magnets.map((magnet) => (
-              <div >
-                <p>Quality: {magnet.quality}</p>                
-                <p>Hash: {magnet.hash}</p>
-                <a href={generateMagnetLink(magnet.hash, movieTitle)}>Magnet Link (revisar)</a>
-                <hr></hr>                
-              </div>
-            ))
+        <div>          
+          <h3>Enlaces magnets: </h3>
+          
+          {(magnets !== null && magnets.length > 0) ? ( 
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Calidad</th>
+                  <th scope="col">Peso</th>
+                  <th scope="col">Seeds</th>
+                  <th scope="col">Bajar</th>
+                </tr>
+              </thead>
+              <tbody>     
+              {        
+              magnets.map((magnet) => (
+                <tr>
+                  <th scope="row">{magnet.quality}</th>
+                  <td>{magnet.size}</td>
+                  <td>{magnet.seeds}</td>
+                  <td>
+                    <a href={generateMagnetLink(magnet.hash, movieTitle)}
+                    className='btn-magnet'
+                    >
+                      <FaMagnet />
+                      <span>{magnet.quality}</span>
+                    </a>
+                  </td>
+                </tr>                      
+                ))
+              }
+              </tbody>
+            </table>            
           ) : (
             <p>No hay datos disponibles</p>
           )}

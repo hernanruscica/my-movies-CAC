@@ -28,15 +28,14 @@ export const MoviesSearchResults = (props) => {
     return (
         <>
             <main className="container">
-                <h3>
+                <h3 className="search-results_title">
                 Resultados de la búsqueda <strong>"{searchText}"</strong>:
                 </h3>                               
 
                 {searchResults.length === 0 ? (
-                <p>No se encontraron resultados.</p>
+                <h3 className="search-results_title">No se encontraron resultados.</h3>
                     ) : (
-                     <>
-                     <p>Se muestran los resultados</p>
+                     <>                    
 
                      {
                      searchResults.map((searchResult, index) => (
@@ -49,7 +48,12 @@ export const MoviesSearchResults = (props) => {
                             <div className="movie-result_img-info">
                                 <h2>{searchResult.title} <em>{`(${searchResult.release_date.slice(0, 4)})`} </em></h2>
                                 <p>{searchResult.overview}</p>
-                                <Link to={`/movie/${searchResult.id}`}>Ver más</Link>
+                                <Link to={`/movie/${searchResult.id}`} className="btn-more">
+                                    {/* <button className="btn-more">
+                                        Ver más
+                                    </button>                                     */}
+                                    Ver mas
+                                </Link>
                             </div>
                         </div>  
                      ) )}                    

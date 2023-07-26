@@ -1,0 +1,16 @@
+.btn-magnet{
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: #333 solid 2px;
+    height: auto;
+    width: 8em;
+    padding: 0.2em 0;
+}
+
+.btn-magnet>span{
+    margin-left: 1.5em;
+}

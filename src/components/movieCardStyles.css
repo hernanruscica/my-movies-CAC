@@ -1,4 +1,10 @@
 
+
+.movieContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+}
 .movieImage{
     border-radius: 1.5em;
     
@@ -21,4 +27,16 @@
     font-size: 1.2em;
     font-weight: 500;
     color: rgb(58, 58, 209);
+}
+
+.back-link{
+    text-decoration: none;
+    font-size: 1.5em;  
+}
+.back-link>span{
+    margin-left: 1em;    
+}
+
+.movieDetailsSection{
+    padding: 0 2em 0em 2em;
 }
