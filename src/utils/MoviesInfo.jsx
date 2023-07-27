@@ -146,3 +146,15 @@ export const ShowTrailer = (props) => {
         </>
     )
 }
+
+export const ShowCertification = (props) => {
+  let {movieId} = props
+  
+  let movieCertification = '18';
+
+  return (
+    <>
+      <p>{`certification: ${movieCertification} con id ${movieId}`}</p>
+    </>
+  )
+}
