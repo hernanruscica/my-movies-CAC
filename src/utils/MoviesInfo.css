@@ -14,3 +14,15 @@
 .btn-magnet>span{
     margin-left: 1.5em;
 }
+
+.trailerContainer{
+    
+    background-color: #57CC99;
+    padding: 1em 2em 2em 1em;
+    border-radius: 10px;
+    
+}
+
+.trailerContainer_title{
+    padding: 0;
+}

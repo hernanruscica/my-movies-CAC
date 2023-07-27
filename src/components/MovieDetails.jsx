@@ -49,11 +49,13 @@ export const MovieDetails = () => {
                         
                         <ShowMagnets imdbId = {movieCurrent.imdb_id} movieTitle = {movieCurrent.title}/>                     
                     </section>   
-                </div>      
-
-                <section className="movieDetailsSection">
+                </div>                      
+                
+                <section className="movieDetailsSection details-row">
                         <ShowTrailer imdbId = {movieCurrent.imdb_id} />
-                        <p>{`Description: ${movieCurrent.overview} `}</p>
+                        <p className="movieDetailsSection_description">
+                            {`Description: ${movieCurrent.overview} `}
+                        </p>
                 </section>  
             </div>  
         </>

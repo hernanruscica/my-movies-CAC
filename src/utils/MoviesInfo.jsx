@@ -6,20 +6,33 @@ const API = "https://api.themoviedb.org/3"
 const APIYTS = "https://yts.mx/api/v2/movie_details.json";
 
 
-
+const magnetsFixed = [
+      {quality: '720p',
+      size: '1.1 GB',
+      seeds: 1234,
+      hash: 'd4d44272ee5f5bf887a9c85ad09ae957bc55f89dd4d44272ee5f5bf887a9c85ad09ae957bc55f89dd4d44272ee5f5bf887a9c85ad09ae957bc55f89d'},
+      {quality: '1080p',
+      size: '1.7 GB',
+      seeds: 2547,
+      hash: 'd4d44272ee5f5bf887a9c85ad09ae957bc55f89dd4d44272ee5f5bf887a9c85ad09ae957bc55f89dd4d44272ee5f5bf887a9c85ad09ae957bc55f89d'},
+      {quality: '2160',
+      size: '2.5 GB',
+      seeds: 476,
+      hash: 'd4d44272ee5f5bf887a9c85ad09ae957bc55f89dd4d44272ee5f5bf887a9c85ad09ae957bc55f89dd4d44272ee5f5bf887a9c85ad09ae957bc55f89d'},
+];
 
 export const GetInfo =(path)=>{
 let data = fetch (API+path,{
     headers:{
         Authorization:
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3M2I5NmRkYzI1NjU4YWQxN2M5MDQ0MGU3ZjYxYmQ2NyIsInN1YiI6IjYzZjY5NzFkMWYzMzE5MDA4NDNhYzQ5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AcIf3KJ97EjbNZB_54h8sZF6a_l8JzmeBjruFnMVTxs",
-        "Content-Type":"application/json;charset=utf-8",
+        "Content-Type":"application/json;charset=utf-8"
+        
     }
 }).then((results)=>results.json());
 return data;
 
 }
-
 
 export const ShowMagnets = (props) => {
     const  {imdbId, movieTitle} = props;    
@@ -38,6 +51,7 @@ export const ShowMagnets = (props) => {
 
           } catch (error) {
             console.error('Error al consultar las APIs:', error.message);
+            setMagnets(magnetsFixed);
           }
         };
     
@@ -68,6 +82,9 @@ export const ShowMagnets = (props) => {
               </thead>
               <tbody>     
               {        
+              /*
+                
+              */
               magnets.map((magnet) => (
                 <tr>
                   <th scope="row">{magnet.quality}</th>
@@ -97,16 +114,19 @@ export const ShowTrailer = (props) => {
     const  {imdbId} = props;  
     const [dataYTS, setDataYts] = useState(null);
 
+    const genericYTembebed = `Jzf6r0EN1i8`;
+
     useEffect(() => {
         const fetchData = async () => {
           try {
             //console.log(imdbId);
-            const response1 = await fetch(`${APIYTS}?imdb_id=${imdbId}`);        
+            const response1 = await fetch(`${APIYTS}?imdb_id=${imdbId}`);
             const data1 = await response1.json();   
             setDataYts(data1.data.movie.yt_trailer_code);
 
           } catch (error) {
             console.error('Error al consultar las APIs:', error.message);
+            setDataYts(genericYTembebed);
           }
         };
     
@@ -115,13 +135,14 @@ export const ShowTrailer = (props) => {
       console.log(dataYTS);
     return (
         <>
-            <h3> Trailer:</h3>
-            <p> {
-                    dataYTS !== null 
-                    ? <iframe width="560" height="315" src={`https://www.youtube.com/embed/${dataYTS}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
-                    : 'No hay datos'
-                }
-            </p>
+            <div className='trailerContainer'>
+              <h3 className='trailerContainer_title'>Trailer</h3>
+            {
+                dataYTS !== null 
+                ? <iframe width="560" height="315" src={`https://www.youtube.com/embed/${dataYTS}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                : 'No hay datos'
+            }
+            </div>            
         </>
     )
 }

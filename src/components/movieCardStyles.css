@@ -2,13 +2,18 @@
 
 .movieContainer{
     display: flex;
-    flex-direction: row;
+    flex-direction: row;    
     margin-top: 1em;
 }
 .movieImage{
     border-radius: 1.5em;
+}
+
+.movieDetailsFigure{
+    margin-right: 3em ;
     
 }
+
 .movieCard__link{
     text-decoration: none;
     
@@ -38,5 +43,17 @@
 }
 
 .movieDetailsSection{
-    padding: 0 2em 0em 2em;
+    padding: 0 ;
+    display: flex;
+    flex-direction: column;    
+    
+}
+.details-row{
+    
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movieDetailsSection_description{
+    width: 40%;
 }
