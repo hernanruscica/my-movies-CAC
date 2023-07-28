@@ -12,12 +12,13 @@ export const MovieDetails = () => {
     
     const [movieCurrent, setMovieCurrent] = useState(null);    
     const [movieCurrentCertification, setMovieCurrentCertification] = useState('cargando...');
+    const [movieCurrentProviders, setMovieCurrentProviders] = useState(null);
     
 
     useEffect(() => {
         GetInfo(`/movie/${movieId}`).then((data) => {
             setMovieCurrent(data);                                    
-            console.log(data);           
+            //console.log(data);           
         });
         //https://api.themoviedb.org/3/movie/872585/release_dates
          GetInfo(`/movie/${movieId}/release_dates`).then((data2) => {
@@ -32,7 +33,11 @@ export const MovieDetails = () => {
             //console.log('data', data2);        
         });
         GetInfo(`/movie/${movieId}/watch/providers`).then((data3) => {
-            console.log(data3);
+            console.log(data3.results)
+            let resultado = Object.keys(data3.results).length > 0 ? data3.results : 'Sin proveedores';
+            console.log(resultado);
+            //filtrar desde aca a los proveedores por region ...
+            setMovieCurrentProviders(resultado);
         })
     }, [movieId]);
 
@@ -66,6 +71,10 @@ export const MovieDetails = () => {
                         <p>{`Calificacion: ${movieCurrentCertification}`}</p>
                         <ShowMagnets imdbId = {movieCurrent.imdb_id} movieTitle = {movieCurrent.title}/>                     
                     </section>   
+                    
+                    <section className="movieDetailsSection">
+                            <p>{JSON.stringify(movieCurrentProviders)}</p>
+                    </section>
                 </div>                      
                 
                 <section className="movieDetailsSection details-row">

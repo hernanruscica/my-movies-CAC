@@ -59,7 +59,7 @@ export const ShowMagnets = (props) => {
       }, []);
 //console.log(magnets)
       const generateMagnetLink = (hash, movieTitle) => {
-        console.log(movieTitle)
+        //console.log(movieTitle)
         const encodedMovieName = encodeURIComponent(movieTitle);
         const magnetLink = `magnet:?xt=urn:btih:${hash}&dn=${encodedMovieName}&tr=http://track.one:1234/announce&tr=udp://track.two:80&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
         return magnetLink;
@@ -132,7 +132,7 @@ export const ShowTrailer = (props) => {
     
         fetchData();
       }, []);
-      console.log(dataYTS);
+      //console.log(dataYTS);
     return (
         <>
             <div className='trailerContainer'>
