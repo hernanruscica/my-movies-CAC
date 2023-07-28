@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Await, useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
 import {GetInfo, ShowMagnets, ShowTrailer, ShowCertification} from "../utils/MoviesInfo";
 import { Link } from "react-router-dom";
@@ -8,9 +8,10 @@ import "./movieCardStyles.css";
 
 export const MovieDetails = () => {
     const {movieId} = useParams();
+    let region = 'ES';
     
     const [movieCurrent, setMovieCurrent] = useState(null);    
-    const [movieCurrentCertification, setMovieCurrentCertification] = useState(null);
+    const [movieCurrentCertification, setMovieCurrentCertification] = useState('cargando...');
     
 
     useEffect(() => {
@@ -19,10 +20,20 @@ export const MovieDetails = () => {
             console.log(data);           
         });
         //https://api.themoviedb.org/3/movie/872585/release_dates
-        GetInfo(`/movie/${movieId}/release_dates`).then((data2) => {
-            setMovieCurrentCertification(data2.results.filter((certification) => certification.iso_3166_1 === 'US')[0].release_dates[0].certification);                                    
-            console.log(data2);        
+         GetInfo(`/movie/${movieId}/release_dates`).then((data2) => {
+            
+            let releasedDates = data2.results;
+            let releasedDatesByRegion =  releasedDates.filter((certification) => certification.iso_3166_1 === region);            
+            let certificationByRegion = releasedDatesByRegion.length > 0 ? 
+                                        releasedDatesByRegion[0].release_dates[0].certification :
+                                        'Sin datos para la region';                                                   
+            setMovieCurrentCertification(certificationByRegion !== '' ? certificationByRegion : 'Sin datos para la region' ); 
+            
+            //console.log('data', data2);        
         });
+        GetInfo(`/movie/${movieId}/watch/providers`).then((data3) => {
+            console.log(data3);
+        })
     }, [movieId]);
 
     if (!movieCurrent || !movieCurrentCertification) {
@@ -31,7 +42,7 @@ export const MovieDetails = () => {
       
     const imgURL = `https://image.tmdb.org/t/p/w300${movieCurrent.poster_path}`;    
     
-    console.log(movieCurrentCertification);
+    //console.log(movieCurrentCertification);
 
     return (
         <>            
