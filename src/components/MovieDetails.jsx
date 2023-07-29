@@ -34,7 +34,8 @@ export const MovieDetails = () => {
         });
         GetInfo(`/movie/${movieId}/watch/providers`).then((data3) => {
             console.log(data3.results)
-            let resultado = Object.keys(data3.results).length > 0 ? data3.results : 'Sin proveedores';
+            let resultado = Object.keys(data3.results).length > 0 ? data3.results : 'sin proveedores en la region';
+             
             console.log(resultado);
             //filtrar desde aca a los proveedores por region ...
             setMovieCurrentProviders(resultado);
