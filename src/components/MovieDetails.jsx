@@ -8,7 +8,7 @@ import "./movieCardStyles.css";
 
 export const MovieDetails = () => {
     const {movieId} = useParams();
-    let region = 'ES';
+    let region = 'US';
     
     const [movieCurrent, setMovieCurrent] = useState(null);    
     const [movieCurrentCertification, setMovieCurrentCertification] = useState('cargando...');
@@ -24,6 +24,7 @@ export const MovieDetails = () => {
          GetInfo(`/movie/${movieId}/release_dates`).then((data2) => {
             
             let releasedDates = data2.results;
+            
             let releasedDatesByRegion =  releasedDates.filter((certification) => certification.iso_3166_1 === region);            
             let certificationByRegion = releasedDatesByRegion.length > 0 ? 
                                         releasedDatesByRegion[0].release_dates[0].certification :
@@ -33,12 +34,20 @@ export const MovieDetails = () => {
             //console.log('data', data2);        
         });
         GetInfo(`/movie/${movieId}/watch/providers`).then((data3) => {
-            console.log(data3.results)
-            let resultado = Object.keys(data3.results).length > 0 ? data3.results : 'sin proveedores en la region';
-             
-            console.log(resultado);
-            //filtrar desde aca a los proveedores por region ...
-            setMovieCurrentProviders(resultado);
+            //console.log(data3.results)
+            let watchProvidersAll = data3.results;
+            console.log(watchProvidersAll);
+
+            let watchProvidersRegions = Object.keys(watchProvidersAll);
+            let thereIsWatchProviders = watchProvidersRegions.length > 0;
+            console.log(thereIsWatchProviders ? 'Proovedores': 'NO hay Proveedores');
+
+            let thereIsWatchProviderByRegion = thereIsWatchProviders ? watchProvidersRegions.findIndex(index => index === region) !== -1 : false ; 
+            console.log(thereIsWatchProviderByRegion );
+
+            let results = thereIsWatchProviderByRegion ? watchProvidersAll[region] : null;             
+            console.log(results)
+            setMovieCurrentProviders(results);
         })
     }, [movieId]);
 
@@ -74,7 +83,84 @@ export const MovieDetails = () => {
                     </section>   
                     
                     <section className="movieDetailsSection">
-                            <p>{JSON.stringify(movieCurrentProviders)}</p>
+                        
+                            <h3 className="movieDetailsSection_title">Mirala online: Info brindada por <strong>JustWatch.com</strong></h3>
+                            {!movieCurrentProviders ? 
+                                (<p>sin proveedores en la region</p>) : 
+                                (<>                                
+                                {                                
+                                movieCurrentProviders.hasOwnProperty('flatrate') ?     
+                                    (                           
+                                    
+                                    <div className="movieDetailsSection_prooviders">
+                                    <h4>Stream</h4>                                
+                                    {
+                                    movieCurrentProviders['flatrate'].map((provider) =>                                 
+                                        (
+                                            <div className="movieDetailsSection_prooviders">
+                                                <a href="https://justwatch.com">
+                                                    <img 
+                                                        src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} 
+                                                        alt="{provider.provider_name}" 
+                                                        className="movieDetailsSection_prooviders_image"
+                                                        />                                                    
+                                                </a> 
+                                            </div>                                    
+                                        ))
+                                    }                                    
+                                            </div>
+                                    ):
+                                    ''                                
+                                }
+                                {                                
+                                movieCurrentProviders.hasOwnProperty('rent') ?     
+                                    (                           
+                                    
+                                    <div className="movieDetailsSection_prooviders">
+                                    <h4>Alquilar</h4>                                
+                                    {
+                                    movieCurrentProviders['rent'].map((provider) =>                                 
+                                        (
+                                            <div className="movieDetailsSection_prooviders">
+                                                <a href="https://justwatch.com">
+                                                    <img 
+                                                        src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} 
+                                                        alt="{provider.provider_name}" 
+                                                        className="movieDetailsSection_prooviders_image"
+                                                        />                                                    
+                                                </a> 
+                                            </div>                                    
+                                        ))
+                                    }                                    
+                                            </div>
+                                    ):
+                                    ''                                
+                                }                               
+                                {                                
+                                movieCurrentProviders.hasOwnProperty('buy') ?     
+                                    (                           
+                                    
+                                    <div className="movieDetailsSection_prooviders">
+                                    <h4>Comprar</h4>                                
+                                    {
+                                    movieCurrentProviders['buy'].map((provider) =>                                 
+                                        (
+                                            <div className="movieDetailsSection_prooviders">
+                                                <a href="https://justwatch.com">
+                                                    <img 
+                                                        src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} 
+                                                        alt="{provider.provider_name}" 
+                                                        className="movieDetailsSection_prooviders_image"
+                                                        />                                                    
+                                                </a> 
+                                            </div>                                    
+                                        ))
+                                    }                                    
+                                            </div>
+                                    ):
+                                    ''                                
+                                }
+                                </>)} 
                     </section>
                 </div>                      
                 
