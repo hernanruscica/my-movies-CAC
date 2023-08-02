@@ -84,7 +84,9 @@ export const MovieDetails = () => {
                     
                     <section className="movieDetailsSection">
                         
-                            <h3 className="movieDetailsSection_title">Mirala online: Info brindada por <strong>JustWatch.com</strong></h3>
+                            <h3 className="movieDetailsSection_title">
+                                Mirala online: 
+                            </h3>
                             {!movieCurrentProviders ? 
                                 (<p>sin proveedores en la region</p>) : 
                                 (<>                                
@@ -92,23 +94,23 @@ export const MovieDetails = () => {
                                 movieCurrentProviders.hasOwnProperty('flatrate') ?     
                                     (                           
                                     
-                                    <div className="movieDetailsSection_prooviders">
-                                    <h4>Stream</h4>                                
-                                    {
-                                    movieCurrentProviders['flatrate'].map((provider) =>                                 
-                                        (
-                                            <div className="movieDetailsSection_prooviders">
+                                    <div className="movieDetailsSection_providers-container">
+                                        <h4>Stream</h4>     
+                                        <div className="movieDetailsSection_providers">                           
+                                        {
+                                        movieCurrentProviders['flatrate'].map((provider) =>                                 
+                                            (                                                
                                                 <a href="https://justwatch.com">
                                                     <img 
                                                         src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} 
                                                         alt="{provider.provider_name}" 
-                                                        className="movieDetailsSection_prooviders_image"
+                                                        className="movieDetailsSection_providers_image"
                                                         />                                                    
-                                                </a> 
-                                            </div>                                    
-                                        ))
-                                    }                                    
-                                            </div>
+                                                </a>                                                 
+                                            ))
+                                        }       
+                                        </div>                                                                 
+                                    </div>
                                     ):
                                     ''                                
                                 }
@@ -116,23 +118,23 @@ export const MovieDetails = () => {
                                 movieCurrentProviders.hasOwnProperty('rent') ?     
                                     (                           
                                     
-                                    <div className="movieDetailsSection_prooviders">
-                                    <h4>Alquilar</h4>                                
-                                    {
-                                    movieCurrentProviders['rent'].map((provider) =>                                 
-                                        (
-                                            <div className="movieDetailsSection_prooviders">
+                                    <div className="movieDetailsSection_providers-container">
+                                        <h4>Alquilar</h4>  
+                                        <div className="movieDetailsSection_providers">                              
+                                        {
+                                        movieCurrentProviders['rent'].map((provider) =>                                 
+                                            (                                                
                                                 <a href="https://justwatch.com">
                                                     <img 
                                                         src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} 
                                                         alt="{provider.provider_name}" 
-                                                        className="movieDetailsSection_prooviders_image"
+                                                        className="movieDetailsSection_providers_image"
                                                         />                                                    
-                                                </a> 
-                                            </div>                                    
-                                        ))
-                                    }                                    
-                                            </div>
+                                                </a>                                                                                 
+                                            ))
+                                        }          
+                                        </div>                           
+                                    </div>
                                     ):
                                     ''                                
                                 }                               
@@ -140,27 +142,28 @@ export const MovieDetails = () => {
                                 movieCurrentProviders.hasOwnProperty('buy') ?     
                                     (                           
                                     
-                                    <div className="movieDetailsSection_prooviders">
-                                    <h4>Comprar</h4>                                
-                                    {
-                                    movieCurrentProviders['buy'].map((provider) =>                                 
-                                        (
-                                            <div className="movieDetailsSection_prooviders">
+                                    <div className="movieDetailsSection_providers-container">
+                                        <h4>Comprar</h4>  
+                                        <div className="movieDetailsSection_providers">                              
+                                        {
+                                        movieCurrentProviders['buy'].map((provider) =>                                 
+                                            (                                                
                                                 <a href="https://justwatch.com">
                                                     <img 
                                                         src={`https://www.themoviedb.org/t/p/original${provider.logo_path}`} 
                                                         alt="{provider.provider_name}" 
-                                                        className="movieDetailsSection_prooviders_image"
+                                                        className="movieDetailsSection_providers_image"
                                                         />                                                    
-                                                </a> 
-                                            </div>                                    
-                                        ))
-                                    }                                    
-                                            </div>
+                                                </a>                                                                                 
+                                            ))
+                                        }    
+                                        </div>                                 
+                                    </div>
                                     ):
                                     ''                                
                                 }
                                 </>)} 
+                        <span className="movieDetails_disclaimer">Info brindada por <strong>JustWatch.com</strong></span>
                     </section>
                 </div>                      
                 

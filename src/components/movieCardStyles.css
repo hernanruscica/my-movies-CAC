@@ -4,13 +4,15 @@
     display: flex;
     flex-direction: row;    
     margin-top: 1em;
+    justify-content: space-between;
+    gap: 1.5em;
 }
 .movieImage{
     border-radius: 1.5em;
 }
 
 .movieDetailsFigure{
-    margin-right: 3em ;
+    margin-right: 0em ;
     
 }
 
@@ -52,8 +54,31 @@
     
     flex-direction: row;
     justify-content: space-between;
+    
 }
 
 .movieDetailsSection_description{
     width: 40%;
+}
+
+.movieDetails_disclaimer{
+    font-size: 1em;
+}
+
+.movieDetailsSection_providers-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.movieDetailsSection_providers{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1em;
+}
+
+.movieDetailsSection_providers_image{
+    width: 4em;    
+    height: auto;
+    border-radius: 10px;
+    margin: 0 0.2em;
 }
