@@ -7,14 +7,18 @@ import { MoviesMain } from './pages/MoviesMain';
 import { MovieDetails } from './components/MovieDetails';
 import { UserMain } from './pages/UserMain';
 import {MoviesSearchResults} from './components/MoviesSearchResults';
+import { GetData } from './utils/webscrap';
 
 function App() {
+  
+
   return (
     <BrowserRouter>
       <div className="App">
         <header>
           <h1>My Movies CAC</h1>
-          <MoviesNavigation />          
+          <MoviesNavigation />    
+          <GetData />      
         </header>
       </div>
       <Routes>
@@ -28,6 +32,7 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
+  
 }
 
 export default App;

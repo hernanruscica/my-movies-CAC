@@ -4,9 +4,11 @@ import { MoviesCardsContainer } from "../components/MoviesCardsContainer";
 import {MoviesSearchResults} from "../components/MoviesSearchResults";
 import { SearchBar } from "../components/SearchBar";
 import {MoviesCardsCarrousel} from "../components/MoviesCardsCarrousel";
-
+import { fetchHtml } from "../utils/webscrap";
 
 import { useQuery }from "../hooks/useQuery";
+
+
 
 export const MoviesMain = () => {
     
@@ -16,6 +18,10 @@ export const MoviesMain = () => {
     const queryIdGenre = (!query.get("genero")) ? '' : query.get("genero");
     //const queryIdPlatform = (!query.get("plataforma")) ? '' : query.get("plataforma");
     //console.log(`texto: ${queryText} queryTextAnio: ${queryTextAnio} queryIdGenre: ${queryIdGenre}` );
+
+    
+
+
     return (
         <>
             <main className="container">
