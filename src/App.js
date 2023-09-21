@@ -6,6 +6,8 @@ import { LandingPage } from './pages/LandingPage';
 import { MoviesMain } from './pages/MoviesMain';
 import { MovieDetails } from './components/MovieDetails';
 import { UserMain } from './pages/UserMain';
+import { RegisterForm } from './pages/RegisterForm';
+import { LoginForm } from './pages/LoginForm';
 import {MoviesSearchResults} from './components/MoviesSearchResults';
 import { GetData } from './utils/webscrap';
 
@@ -18,7 +20,7 @@ function App() {
         <header>
           <h1>My Movies CAC</h1>
           <MoviesNavigation />    
-          <GetData />      
+          {/* <GetData />       */}
         </header>
       </div>
       <Routes>
@@ -28,7 +30,9 @@ function App() {
         {/* <Route path='/movies' element={<MoviesSearchResults/>} />      */}
         <Route path='/user' element={<UserMain/>} />        
         <Route path='/user/create' element='Create user' />   
-        <Route path='/user/edit/:id' element='Edit user' />   
+        <Route path='/user/edit/:id' element='Edit user' />  
+        <Route path='/registerform' element={<RegisterForm/>} /> 
+        <Route path='/loginform' element={<LoginForm/>} /> 
       </Routes>
     </BrowserRouter>
   );
