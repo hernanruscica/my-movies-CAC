@@ -3,7 +3,7 @@ import "./generalStyles.css";
 import React, { useState } from 'react';
 import {CreateUser} from '../utils/UserAPI';
 
-export const RegisterForm = () => {      
+export const RegisterForm =  () => {      
     
   
     const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ export const RegisterForm = () => {
         birthday: '',
       });
     
-      const handleChange = (e) => {
+      const handleChange = async (e) => {
         const { name, value, type, files } = e.target;
     
         if (type === 'file') {
@@ -72,13 +72,13 @@ export const RegisterForm = () => {
         }
             
         // Si no hay errores, puedes continuar con el envío del formulario y la inserción en la base de datos
-        delete formData.confirmPassword;
+        //delete formData.confirmPassword;
         console.log('Datos del formulario:', formData);
         //CreateUser(formData); 
         try {
             // Enviar datos a la API
             const newUser = await CreateUser(formData);
-            console.log('Nuevo usuario creado:', newUser);
+            console.log('Resultado de la creacion del usuario:', newUser.results);
         
             // Puedes redirigir al usuario a otra página o mostrar un mensaje de éxito aquí.
           } catch (error) {

@@ -3,7 +3,7 @@ import "./generalStyles.css";
 import React, { useState } from 'react';
 import {AuthenticateUser} from '../utils/UserAPI';
 
-export const LoginForm = () => {      
+export const LoginForm = () => {     
     
   
     const [formData, setFormData] = useState({
@@ -41,9 +41,7 @@ export const LoginForm = () => {
         if (!formData.userName) {
           validationErrors.userName = 'El nombre es obligatorio';
         }
-        // if (!formData.email) {
-        //   validationErrors.email = 'El email es obligatorio';
-        // }
+        
         if (!formData.password) {
           validationErrors.password = 'La contraseña es obligatoria';
         }        
@@ -76,11 +74,7 @@ export const LoginForm = () => {
               <input type="text" className="form-control" name="userName" value={formData.userName} onChange={handleChange} />
               {errors.userName && <div className="text-danger">{errors.userName}</div>}
             </div> 
-            {/* <div className="form-group">
-              <label>Email:</label>
-              <input type="email" className="form-control" name="email" value={formData.email} onChange={handleChange} />
-              {errors.email && <div className="text-danger">{errors.email}</div>}
-            </div> */}
+            
             <div className="form-group">
               <label>Contraseña:</label>
               <input type="password" className="form-control" name="password" value={formData.password} onChange={handleChange} />
